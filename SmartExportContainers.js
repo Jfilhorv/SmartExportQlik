@@ -6,15 +6,24 @@ define([
 ], function ($, qlik, cssContent, properties) {
     'use strict';
 
+    function downloadUrl(url) {
+        if (url.indexOf('http') === -1) {
+            url = window.location.origin + url;
+        }
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'Export.xlsx';
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() { document.body.removeChild(a); }, 1000);
+    }
+
     function exportObject(app, objectId) {
         app.getObject(objectId).then(function(model) {
             model.exportData({fileType: 'OOXML'}).then(function(reply) {
                 var url = reply.qUrl;
-                // Qlik returns a relative URL — make it absolute
-                if (url.indexOf('http') === -1) {
-                    url = window.location.origin + url;
-                }
-                window.open(url);
+                downloadUrl(url);
             }).catch(function(err) {
                 console.error('SmartExport exportData error:', err);
                 alert('Export failed. Check browser console for details.');
