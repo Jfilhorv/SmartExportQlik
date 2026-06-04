@@ -1,0 +1,9 @@
+{
+  "name": "Smart Export Containers",
+  "description": "Export any table or pivot table by Object ID. Works inside containers.",
+  "preview": "SmartExportContainers.png",
+  "type": "visualization",
+  "icon": "export",
+  "version": "2.0.0",
+  "author": ""
+}
